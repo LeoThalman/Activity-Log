@@ -1,5 +1,5 @@
 from flask import Flask, jsonify, abort, request, url_for
-
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -9,6 +9,23 @@ persian = {"breed": "Persian", "style": "Ambivalent"}
 
 catbreed_list = [siamese, persian]
 
+activity_log = [
+    {
+        'id': 0,
+        'user_id': 1,
+        'username': 'john',
+        'timestamp': datetime.utcnow(),
+        'details': "Important stuff here",
+    },
+    {
+        'id': 1,
+        'user_id': 2,
+        'username': 'yoko',
+        'timestamp': datetime.utcnow(),
+        'details': "Even more important",
+    },
+]
+
 
 @app.route("/api/catbreeds/<int:id>", methods=["GET"])
 def catbreed(id):
@@ -17,9 +34,9 @@ def catbreed(id):
     return jsonify(catbreed_list[id])
 
 
-@app.route("/api/catbreeds", methods=["GET"])
-def catbreeds():
-    return jsonify({"catbreeds": catbreed_list})
+@app.route("/api/activities/", methods=["GET"])
+def activities():
+    return jsonify({"activities": activity_log})
 
 
 @app.route("/api/catbreeds", methods=["POST"])
