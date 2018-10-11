@@ -27,11 +27,11 @@ activity_log = [
 ]
 
 
-@app.route("/api/catbreeds/<int:id>", methods=["GET"])
-def catbreed(id):
-    if id < 0 or id >= len(catbreed_list):
+@app.route("/api/activities/<int:id>", methods=["GET"])
+def activity(id):
+    if id < 0 or id >= len(activity_log):
         abort(404)
-    return jsonify(catbreed_list[id])
+    return jsonify(activity_log[id])
 
 
 @app.route("/api/activities/", methods=["GET"])
