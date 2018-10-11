@@ -3,11 +3,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-siamese = {"breed": "Siamese", "style": "Feisty"}
 
-persian = {"breed": "Persian", "style": "Ambivalent"}
-
-catbreed_list = [siamese, persian]
 
 activity_log = [
     {
@@ -47,5 +43,8 @@ def new_activity():
     if "user_id" not in new_act_log or "username" not in new_act_log or "details" not in new_act_log:
         abort(400)
     new_act_log["id"] = len(activity_log)
-    new_act_log["location"] = url_for("activity", id=new_act_log["id"])
-    return jsonify(new_act_log)
+    new_act_log["timestamp"] = datetime.utcnow()
+    activity_log.append(new_act_log)
+    rtn = dict(new_act_log)
+    rtn["location"] = url_for("activity", id=new_act_log["id"])
+    return jsonify(rtn)
