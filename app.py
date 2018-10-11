@@ -39,13 +39,13 @@ def activities():
     return jsonify({"activities": activity_log})
 
 
-@app.route("/api/catbreeds", methods=["POST"])
-def new_catbreed():
+@app.route("/api/activities", methods=["POST"])
+def new_activity():
     if not request.json:
         abort(400)
-    new_breed = request.get_json()
-    if "breed" not in new_breed or "style" not in new_breed:
+    new_act_log= request.get_json()
+    if "user_id" not in new_act_log or "username" not in new_act_log or "details" not in new_act_log:
         abort(400)
-    new_breed["id"] = 999
-    new_breed["location"] = url_for("catbreed", id=999)
-    return jsonify(new_breed)
+    new_act_log["id"] = len(activity_log)
+    new_act_log["location"] = url_for("activity", id=new_act_log["id"])
+    return jsonify(new_act_log)
