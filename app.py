@@ -3,8 +3,6 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-
-
 activity_log = [
     {
         'id': 0,
@@ -21,7 +19,6 @@ activity_log = [
         'details': "Even more important",
     },
 ]
-
 
 @app.route("/api/activities/<int:id>", methods=["GET"])
 def activity(id):

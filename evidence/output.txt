@@ -1,0 +1,45 @@
+--------- Results of POST to /api/activities --------
+{
+  "details": "stuff here", 
+  "id": 2, 
+  "location": "/api/activities/2", 
+  "timestamp": "Sun, 14 Oct 2018 21:33:15 GMT", 
+  "user_id": 3, 
+  "username": "frank"
+}
+
+--------- Results of GET to /api/activities/ --------
+{
+  "activities": [
+    {
+      "details": "Important stuff here", 
+      "id": 0, 
+      "timestamp": "Sun, 14 Oct 2018 21:33:10 GMT", 
+      "user_id": 1, 
+      "username": "john"
+    }, 
+    {
+      "details": "Even more important", 
+      "id": 1, 
+      "timestamp": "Sun, 14 Oct 2018 21:33:10 GMT", 
+      "user_id": 2, 
+      "username": "yoko"
+    }, 
+    {
+      "details": "stuff here", 
+      "id": 2, 
+      "timestamp": "Sun, 14 Oct 2018 21:33:15 GMT", 
+      "user_id": 3, 
+      "username": "frank"
+    }
+  ]
+}
+
+--------- Results of GET to /api/activities/2 --------
+{
+  "details": "stuff here", 
+  "id": 2, 
+  "timestamp": "Sun, 14 Oct 2018 21:33:15 GMT", 
+  "user_id": 3, 
+  "username": "frank"
+}
