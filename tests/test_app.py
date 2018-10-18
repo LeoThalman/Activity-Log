@@ -39,3 +39,15 @@ def test_post_activity_should_fail_with_incorrect_json(client, setup_module):
             user_id="2"
         ))
     assert response.status_code == 400
+
+def test_post_activity_should_pass_with_correct_json(client, setup_module):
+    response = client.post(url_for('new_activity'),
+        json=dict(
+            username="tony",
+            user_id="2",
+            details="some details"
+        ))
+    assert response.status_code == 201
+    data = response.get_json()
+    assert data["details"] == "some details"
+    assert data["location"] is not None
