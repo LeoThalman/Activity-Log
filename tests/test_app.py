@@ -31,3 +31,11 @@ def test_activity_returns_json_on_valid_id(client, setup_module):
 def test_post_activity_should_fail_with_no_json(client, setup_module):
     response = client.post(url_for('new_activity'))
     assert response.status_code == 400
+
+def test_post_activity_should_fail_with_incorrect_json(client, setup_module):
+    response = client.post(url_for('new_activity'),
+        json=dict(
+            username="tony",
+            user_id="2"
+        ))
+    assert response.status_code == 400
