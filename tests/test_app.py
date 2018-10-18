@@ -11,7 +11,7 @@ def test_activity_errors_on_invalid_id(client, setup_module):
     response = client.get(url_for("activity", id='aaaaaaaaaaaaaaaaaaaaaaaa'))
     assert response.status_code == 404
 
-def test_activities_returns_json(client):
+def test_activities_returns_json(client, setup_module):
     response = client.get(url_for("activities"))
     assert response.status_code == 200
     data = response.get_json()
@@ -27,3 +27,7 @@ def test_activity_returns_json_on_valid_id(client, setup_module):
     assert response.status_code == 200
     r_data = response.get_json()
     assert r_data["username"] == data["activities"][0]["username"]
+
+def test_post_activity_should_fail_with_no_json(client, setup_module):
+    response = client.post(url_for('new_activity'))
+    assert response.status_code == 400
