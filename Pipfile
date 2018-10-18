@@ -8,6 +8,7 @@ flask = "*"
 pymongo = "*"
 pytest = "*"
 coverage = "*"
+requests = "*"
 
 [dev-packages]
 
