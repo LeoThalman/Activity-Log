@@ -2,10 +2,11 @@ from flask import Flask, jsonify, abort, request, url_for
 from datetime import datetime
 from pymongo import MongoClient
 from bson import ObjectId
+import os
 
 app = Flask(__name__)
 client = MongoClient('mongodb://localhost:27017/')
-db = client["activity-log"]
+db = client[os.environ['ACTLOG_DB']]
 
 def setup_tests():
     db = client["activity-log-tests"]
@@ -17,11 +18,11 @@ def setup_tests():
         }
     recordTwo = {
         "user_id": 1,
-        "username": "john",
+        "username": "zeet",
         "details": "different stuff here",
         "timestamp": datetime.utcnow()
         }
-    db.act_log.delete_many()
+    db.act_log.delete_many({})
     db.act_log.insert_one(recordOne)
     db.act_log.insert_one(recordTwo)
 

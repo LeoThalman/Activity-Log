@@ -5,7 +5,9 @@ sys.path.append('..')
 import app
 import requests
 
-def test_activity_errors_on_invalid_id(client):
+
+
+def test_activity_errors_on_invalid_id(client, setup_module):
     response = client.get(url_for("activity", id='aaaaaaaaaaaaaaaaaaaaaaaa'))
     assert response.status_code == 404
 
@@ -13,4 +15,15 @@ def test_activities_returns_json(client):
     response = client.get(url_for("activities"))
     assert response.status_code == 200
     data = response.get_json()
-    assert data["activities"][0]["_id"] is not None
+    doc1 = data["activities"][0]["username"]
+    doc2 = data["activities"][1]["username"]
+    assert (doc1 == "zeet") or (doc2 == "zeet")
+
+def test_activity_returns_json_on_valid_id(client, setup_module):
+    id_response = client.get(url_for("activities"))
+    data = id_response.get_json()
+    log_id = str(data["activities"][0]["_id"])
+    response = client.get(url_for("activity", id=log_id))
+    assert response.status_code == 200
+    r_data = response.get_json()
+    assert r_data["username"] == data["activities"][0]["username"]

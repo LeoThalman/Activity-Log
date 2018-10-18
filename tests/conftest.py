@@ -3,11 +3,12 @@ import tempfile
 import pytest
 import sys
 sys.path.append('..')
-from app import app
+from app import app, setup_tests
 
-@pytest.fixture
-def setup_module(app):
-    app.setup_tests()
+
+@pytest.fixture(scope="session")
+def setup_module():
+    setup_tests()
 
 @pytest.fixture
 def client():
