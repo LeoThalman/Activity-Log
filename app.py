@@ -1,21 +1,21 @@
 from flask import Flask, jsonify, abort, request, url_for
 from datetime import datetime
 from pymongo import MongoClient
+from bson import ObjectId
 
 
 app = Flask(__name__)
 client = MongoClient('mongodb://localhost:27017/')
 db = client["activity-log"]
 
-
-
-
 @app.route("/api/activities/<string:id>", methods=["GET"])
 def activity(id):
-    if id < 0 or id >= len(activity_log):
+    log_id = ObjectId(id)
+    rtn = db["act_log"].find_one({"_id": log_id})
+    if rtn == None:
         abort(404)
-    return jsonify(activity_log[id])
-
+    rtn["_id"] = str(rtn["_id"])
+    return jsonify(rtn)
 
 @app.route("/api/activities/", methods=["GET"])
 def activities():
@@ -24,7 +24,6 @@ def activities():
     for log in rtn:
         log["_id"] = str(log["_id"])
     return jsonify({"activities": rtn})
-
 
 @app.route("/api/activities", methods=["POST"])
 def new_activity():
@@ -39,4 +38,4 @@ def new_activity():
     rtn = dict(new_act_log)
     rtn["_id"] = str(log_id)
     rtn["location"] = url_for("activity", id=rtn["_id"])
-    return jsonify(rtn)
+    return jsonify(rtn), 201
