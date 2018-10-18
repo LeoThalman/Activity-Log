@@ -7,6 +7,24 @@ app = Flask(__name__)
 client = MongoClient('mongodb://localhost:27017/')
 db = client["activity-log"]
 
+def setup_tests():
+    db = client["activity-log-tests"]
+    recordOne = {
+        "user_id": 0,
+        "username": "frank",
+        "details": "stuff here",
+        "timestamp": datetime.utcnow()
+        }
+    recordTwo = {
+        "user_id": 1,
+        "username": "john",
+        "details": "different stuff here",
+        "timestamp": datetime.utcnow()
+        }
+    db.act_log.delete_many()
+    db.act_log.insert_one(recordOne)
+    db.act_log.insert_one(recordTwo)
+
 @app.route("/api/activities/<string:id>", methods=["GET"])
 def activity(id):
     log_id = ObjectId(id)
