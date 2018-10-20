@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 flask = "*"
-pymongo = "*"
 pytest = "*"
 coverage = "*"
 requests = "*"
+mongoengine = "*"
 
 [dev-packages]
 

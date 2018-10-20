@@ -15,6 +15,7 @@ def test_activities_returns_json(client, setup_module):
     response = client.get(url_for("activities"))
     assert response.status_code == 200
     data = response.get_json()
+    print(data)
     doc1 = data["activities"][0]["username"]
     doc2 = data["activities"][1]["username"]
     assert (doc1 == "zeet") or (doc2 == "zeet")
@@ -22,7 +23,7 @@ def test_activities_returns_json(client, setup_module):
 def test_activity_returns_json_on_valid_id(client, setup_module):
     id_response = client.get(url_for("activities"))
     data = id_response.get_json()
-    log_id = str(data["activities"][0]["_id"])
+    log_id = str(data["activities"][0]["_id"]["$oid"])
     response = client.get(url_for("activity", id=log_id))
     assert response.status_code == 200
     r_data = response.get_json()

@@ -1,9 +1,13 @@
 --------- Results of POST to /api/activities --------
 {
+  "_id": {
+    "$oid": "5bcbb8103cfa483b8c8c3086"
+  }, 
   "details": "stuff here", 
-  "id": 2, 
-  "location": "/api/activities/2", 
-  "timestamp": "Sun, 14 Oct 2018 21:33:15 GMT", 
+  "location": "/api/activities/5bcbb8103cfa483b8c8c3086", 
+  "timestamp": {
+    "$date": 1540077575968
+  }, 
   "user_id": 3, 
   "username": "frank"
 }
@@ -12,34 +16,50 @@
 {
   "activities": [
     {
-      "details": "Important stuff here", 
-      "id": 0, 
-      "timestamp": "Sun, 14 Oct 2018 21:33:10 GMT", 
-      "user_id": 1, 
-      "username": "john"
-    }, 
-    {
-      "details": "Even more important", 
-      "id": 1, 
-      "timestamp": "Sun, 14 Oct 2018 21:33:10 GMT", 
-      "user_id": 2, 
-      "username": "yoko"
-    }, 
-    {
+      "_id": {
+        "$oid": "5bcbb8103cfa483b8c8c3086"
+      }, 
       "details": "stuff here", 
-      "id": 2, 
-      "timestamp": "Sun, 14 Oct 2018 21:33:15 GMT", 
+      "timestamp": {
+        "$date": 1540077575968
+      }, 
+      "user_id": 3, 
+      "username": "frank"
+    }, 
+    {
+      "_id": {
+        "$oid": "5bcbb7a03cfa483af554e041"
+      }, 
+      "details": "stuff here", 
+      "timestamp": {
+        "$date": 1540077466857
+      }, 
+      "user_id": 3, 
+      "username": "frank"
+    }, 
+    {
+      "_id": {
+        "$oid": "5bcbb7db3cfa483af554e042"
+      }, 
+      "details": "stuff here", 
+      "timestamp": {
+        "$date": 1540077466857
+      }, 
       "user_id": 3, 
       "username": "frank"
     }
   ]
 }
 
---------- Results of GET to /api/activities/2 --------
+--------- Results of GET to /api/activities/5bcbb7a03cfa483af554e041 --------
 {
+  "_id": {
+    "$oid": "5bcbb7a03cfa483af554e041"
+  }, 
   "details": "stuff here", 
-  "id": 2, 
-  "timestamp": "Sun, 14 Oct 2018 21:33:15 GMT", 
+  "timestamp": {
+    "$date": 1540077466857
+  }, 
   "user_id": 3, 
   "username": "frank"
 }
