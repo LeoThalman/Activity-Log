@@ -6,7 +6,7 @@ import os
 import json
 
 app = Flask(__name__)
-connect(db=os.environ['ACTLOG_DB'], host='localhost')
+connect(db=os.environ.get('ACTLOG_DB'), host='localhost')
 
 def setup_tests():
     logs = ActivityLog.objects
