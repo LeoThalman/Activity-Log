@@ -1,13 +1,26 @@
 from flask import Flask, jsonify, abort, request, url_for
 from datetime import datetime
 from mongoengine import *
+from dotenv import load_dotenv
 from bson import ObjectId
 import os
 import json
 
 app = Flask(__name__)
-connect(db=os.environ.get('ACTLOG_DB'), host='localhost')
 
+
+load_dotenv(override=True)
+
+mongo_host = os.getenv('DB_HOST')
+mongo_db = os.getenv('ACTLOG_DB')
+mongo_user = os.getenv('DB_USER')
+mongo_password = os.getenv('DB_PASSWORD')
+
+connect(db=mongo_db,
+        host=mongo_host,
+        username=mongo_user,
+        password=mongo_password
+        )
 def setup_tests():
     logs = ActivityLog.objects
     for log in logs:
@@ -61,8 +74,9 @@ def new_activity():
             user_id=new_log["user_id"],
             username=new_log["username"],
             details=new_log["details"]).save()
-    log_id = str(log.id)
     rtn = json.loads(log.to_json())
-    rtn["location"] = url_for("activity", id=rtn["_id"]["$oid"])
+    rtn["id"] = str(rtn["_id"]["$oid"])
+    rtn["location"] = url_for("activity", id=str(rtn["_id"]["$oid"]))
+    rtn.pop("_id")
 
     return jsonify(rtn), 201

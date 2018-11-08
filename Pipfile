@@ -9,6 +9,7 @@ pytest = "*"
 coverage = "*"
 requests = "*"
 mongoengine = "*"
+python-dotenv = "*"
 
 [dev-packages]
 
