@@ -10,6 +10,7 @@ coverage = "*"
 requests = "*"
 mongoengine = "*"
 python-dotenv = "*"
+gunicorn = "*"
 
 [dev-packages]
 
