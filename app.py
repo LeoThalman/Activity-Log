@@ -21,20 +21,8 @@ connect(db=mongo_db,
         username=mongo_user,
         password=mongo_password
         )
-def setup_tests():
-    logs = ActivityLog.objects
-    for log in logs:
-        log.delete()
-    recordOne = ActivityLog(
-        user_id= 0,
-        username= "frank",
-        details= "stuff here"
-        ).save()
-    recordTwo = ActivityLog(
-        user_id= 1,
-        username= "zeet",
-        details= "different stuff here"
-        ).save()
+
+
 
 class ActivityLog(Document):
     user_id = IntField(required=True)
