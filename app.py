@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, abort, request, url_for
 from datetime import datetime
+from time import time
 from mongoengine import *
 from dotenv import load_dotenv
 from bson import ObjectId
@@ -66,6 +67,7 @@ def activities():
 
 @app.route("/api/activities", methods=["POST"])
 def new_activity():
+    sleep_time = os.getenv('SLEEP_TIME', default=0)
     if not request.json:
         abort(400)
     new_log = request.get_json()
@@ -75,6 +77,7 @@ def new_activity():
             user_id=new_log["user_id"],
             username=new_log["username"],
             details=new_log["details"]).save()
+    time.sleep(int(sleep_time))
     rtn = json.loads(log.to_json())
     rtn["id"] = str(rtn["_id"]["$oid"])
     rtn["location"] = url_for("activity", id=str(rtn["_id"]["$oid"]))
